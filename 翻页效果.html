@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				text-align: center;
+			}
+			#box{
+				width: 100px;
+				height: 100px;
+				font: 50px/100px "微软雅黑";
+				color: #fff;
+				text-align: center;
+				margin: 100px auto;
+				position: relative;
+				transform-style: preserve-3d;
+				perspective: 800px;
+				perspective-origin: 50% 50%;
+			}
+			.page{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				background-color: #000;
+				transform-origin: bottom;
+				transition: 1s;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="page">1</div>
+		</div>
+		<input type="button" name="prev" id="prev" value="上一页" />
+		<input type="button" name="next" id="next" value="下一页" />
+		<script type="text/javascript">
+			var box = document.getElementById('box');
+			var pages = box.getElementsByTagName('div');
+			var btns = document.getElementsByTagName('input');
+			var str = '';
+			for(var i=2;i<10;i++){
+				str += '<div class="page" style="transform:rotateX(90deg)">'+ i +'</div>';
+			}
+			box.innerHTML += str;
+			btns[1].onclick = function(){
+				for(var i=0;i<pages.length;i++){
+					if(i==pages.length-1){
+						return;
+					}
+					if( pages[i].style.transform != 'rotateX(90deg)' && pages[i].style.transform != 'rotateX(-90deg)' ){
+						pages[i].style.transform = 'rotateX(-90deg)';
+						pages[i+1].style.transform = 'rotateX(0deg)';
+						break;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

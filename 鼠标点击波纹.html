@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				position: absolute;
+				border-radius: 50%;
+				border: 2px solid #000;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<script>
+			var divs = document.getElementsByTagName('div');
+			document.onclick = function(ev){
+				fn(divs[0],ev);
+				setTimeout(function(){
+					fn(divs[1],ev);
+				},100)
+				setTimeout(function(){
+					fn(divs[2],ev);
+				},200)
+			}
+			function fn(obj,ev){
+				obj.style.display = 'block';
+				var w = 10;
+				var h = 10;
+				var o = 100;
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function(){
+					obj.style.width = (w+=4)+'px';
+					obj.style.height = (h+=4)+'px';
+					obj.style.opacity = (o-=2)/100;
+					var l = ev.clientX - obj.offsetWidth/2;
+					var t = ev.clientY - obj.offsetHeight/2;
+					obj.style.left = l + 'px';
+					obj.style.top = t + 'px';
+					if(o==0){
+						clearInterval(obj.timer);
+					}
+				},16);
+			}
+		</script>
+	</body>
+</html>

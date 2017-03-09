@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="move.js"></script>
+		<style type="text/css">
+			html{
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				overflow: hidden;
+			}
+			.box{
+				width: 33.33%;
+				height: 33.33%;
+				float: left;
+				text-align: center;
+				font-size: 50px;
+				position: relative;
+				overflow: hidden;
+				transition: 2s;
+			}
+			.bg{
+				border-radius: 50%;
+				position: absolute;
+				width: 0;
+				height: 0;
+				top: 50%;
+				left: 50%;
+				opacity: 0;
+				z-index: -1;
+				transition: 1s;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box"><div class="bg"></div>1</div>
+		<div class="box"><div class="bg"></div>2</div>
+		<div class="box"><div class="bg"></div>3</div>
+		<div class="box"><div class="bg"></div>4</div>
+		<div class="box"><div class="bg"></div>5</div>
+		<div class="box"><div class="bg"></div>6</div>
+		<div class="box"><div class="bg"></div>7</div>
+		<div class="box"><div class="bg"></div>8</div>
+		<div class="box"><div class="bg"></div>9</div>
+		
+		<script type="text/javascript">
+			var boxs = document.getElementsByClassName('box');
+			var bgs = document.getElementsByClassName('bg');
+			var color = ['red','yellow','green','blue','pink','black','#15DF8D','gray','#800080'];
+			
+			var winW = window.innerWidth;
+			var winH = window.innerHeight;
+			var boxW = boxs[0].offsetWidth;
+			var boxH = boxs[0].offsetHeight;
+			for(var i=0;i<boxs.length;i++){
+				boxs[i].style.lineHeight = winH/3 + 'px';
+				boxs[i].index = i;
+				bgs[i].style.backgroundColor = color[i];
+				
+				boxs[i].onmouseenter = function(){
+					bgs[this.index].style.width = boxW + 'px';
+					bgs[this.index].style.height = boxW + 'px';
+					bgs[this.index].style.left = 0;
+					bgs[this.index].style.top = -(boxW-boxH)/2 + 'px' ;
+					bgs[this.index].style.opacity = 0.8;
+					bgs[this.index].style.transform = 'scale(2)';
+					boxs[this.index].style.transform = 'scale(1.5)';
+				}
+				boxs[i].onmouseleave = function(){
+					bgs[this.index].style.width = 0;
+					bgs[this.index].style.height = 0;
+					bgs[this.index].style.opacity = 0;
+					bgs[this.index].style.left = '50%';
+					bgs[this.index].style.top = '50%';
+					boxs[this.index].style.transform = 'scale(1)';
+				}
+			}
+		</script>
+	</body>
+</html>

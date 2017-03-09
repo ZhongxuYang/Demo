@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				width: 200px;
+				margin: 50px auto;
+				transform-style: preserve-3d;
+				perspective: 800px;
+				position: relative;
+			}
+			#box div{
+				width: 200px;
+				height: 50px;
+				background-color: #04558C;
+				text-align: center;
+				line-height: 50px;
+				font-weight: bold;
+				position: absolute;
+			}
+			#box div:nth-child(1){
+				color: #fff;
+				top: 0;
+				transform-origin: top;
+				transition: 1s;
+			}
+			#box div:nth-child(2){
+				background-color: #FEFCC9;
+				top: -50px;
+				transform: rotateX(90deg);
+				transform-origin: bottom;
+				transition: 1s;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="after">
+				Hello,it’s me.
+			</div>
+			<div class="before">
+				Hello,it’s me.
+			</div>
+		</div>
+		<script type="text/javascript">
+			var box = document.getElementById('box');
+			var after = document.getElementsByClassName('after')[0];
+			var before = document.getElementsByClassName('before')[0];
+			
+			box.onmouseenter = function(){
+				before.style.transform = 'rotateX(0deg)';
+				before.style.top = 0;
+				after.style.top = '50px';
+				after.style.transform = 'rotateX(-90deg)';
+			}
+			box.onmouseleave = function(){
+				before.style.cssText = '';
+				after.style.cssText = '';
+			}
+		</script>
+	</body>
+</html>

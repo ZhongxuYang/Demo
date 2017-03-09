@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="按钮" />
+		<p>1 2 3 4 5 6</p>
+		<script type="text/javascript">
+			var btn = document.getElementsByTagName('input')[0];
+			var p = document.getElementsByTagName('p')[0];
+			var str = p.innerHTML;
+			var data = str.split(' ');
+			
+			btn.onclick = function(){
+				var l = data.slice(0,data.length/2);
+				var r = data.slice(data.length/2);
+				var newData = [];
+				console.log(l,r)
+				for(var i=0;i<data.length;i++){
+					if(i%2==0){
+						newData.push(l.shift());
+					}
+					else{
+						newData.push(r.shift());
+					}
+					console.log(newData)
+				}
+				p.innerHTML = newData;
+			}
+		</script>
+	</body>
+</html>

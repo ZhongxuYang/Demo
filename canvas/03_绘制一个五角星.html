@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    /*canvas {
+      width: 100px;
+      height: 2000px;
+    }*/
+  </style>
+</head>
+<body>
+  <!-- 300 * 150 -->
+  <canvas id="canvas"></canvas>
+  <script>
+    // 准备画布
+    const canvas = document.querySelector('#canvas');
+    // 准备画笔
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width = 600;
+    const H = canvas.height = 600;
+    
+    canvas.style.boxShadow = '4px 4px 12px rgba(0, 0, 0, 0.5)';
+    canvas.style.backgroundColor = 'rgb(29, 33, 64)';
+    
+    // const R = 200, r = 100;
+    
+    // 2*Math.PI === > 360deg
+    
+    // ctx.lineWidth = 2;
+    // // ctx.strokeStyle = 'red';
+    // ctx.fillStyle = 'yellow';
+    // // drawStart(12);
+    // drawStart(5, 200, 100, 40, 300, 300);
+    // // ctx.stroke();
+    // ctx.fill();
+    
+    ctx.fillStyle = 'rgba(221, 214, 54, 0.5)';
+    ctx.strokeStyle = 'rgba(223, 50, 66, 1)';
+    ctx.lineWidth = 10;
+    drawStart(5, 300, 100, 40, 300, 300);
+    
+    // ctx.fill();
+    // ctx.stroke();
+    
+    // for(var i=0; i<300; i++){
+    //   var R = 10 * Math.random() + 10;
+    //   var r = R / 2;
+    //   var rad = 360 * Math.random();
+    //   var x = W * Math.random();
+    //   var y = H * Math.random();
+    //   drawStart(5, R, r, rad, x, y);
+    //   ctx.fill();
+    // }
+    
+    function drawStart(n, R, r, rad, x, y){
+      ctx.beginPath();
+      for(let i=0; i<n; i++){
+        ctx.lineTo(R * Math.cos(((90 - 360/n) + 360/n * i + rad) * Math.PI / 180) + x, -R * Math.sin(((90 - 360/n) + 360/n * i + rad) * Math.PI / 180) + y);
+        ctx.lineTo(r * Math.cos(((90 - 360/n/2) + 360/n * i + rad) * Math.PI / 180) + x, -r * Math.sin(((90 - 360/n/2) + 360/n * i  + rad) * Math.PI / 180) + y);
+      }
+      ctx.closePath();
+    }
+    
+  
+  </script>
+</body>
+</html>

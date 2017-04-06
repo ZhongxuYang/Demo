@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    canvas {
+      /*border: 2px solid #000;*/
+      display: block;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- 300 * 150 -->
+  <canvas id="canvas"></canvas>
+  <script>
+    // 准备画布
+    const canvas = document.querySelector('#canvas');
+    // 准备画笔
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width = 700;
+    const H = canvas.height = 700;
+    
+    const X = W/2, Y = X;
+    
+    class Clock {
+      constructor(x, y, r){
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.rem = r / 250;
+        return this;
+      }
+      autoPlay(ctx){
+        const fn = () => {
+          requestAnimationFrame(fn);
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+          this.render(ctx);
+        }
+        fn();
+      }
+      render(ctx){
+        const time = new Date();
+        const s = time.getSeconds();
+        const m = time.getMinutes() + s/60;
+        const h = time.getHours() + m/60;
+        
+        this.drawBackground(ctx);
+        this.drawTimeScale(ctx);
+        this.drawTimeText(ctx);
+        this.drawHour(ctx, h);
+        this.drawMin(ctx, m);
+        this.drawSec(ctx, s);
+        this.drawRound(ctx);
+        return this;
+      }
+      drawBackground(ctx){
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.lineWidth = 10 * this.rem;
+        ctx.beginPath();
+        ctx.arc(0, 0, this.r - 5 * this.rem, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.restore();
+        return this;
+      }
+      drawTimeScale(ctx){
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        for(let i=0; i<60; i++){
+          const rad = 2 * Math.PI / 60 * i;
+          const x = (this.r - 30 * this.rem) * Math.cos(rad);
+          const y = (this.r - 30 * this.rem) * Math.sin(rad);
+          const r = !(i%5) ? 4 * this.rem : 2 * this.rem;
+          ctx.beginPath()
+          ctx.arc(x, y, r, 0, 2*Math.PI);
+          ctx.fill();
+        }
+        ctx.restore();
+        return this;
+      }
+      drawTimeText(ctx){
+        const arr = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2];
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        for(let i=0, item; item = arr[i]; i++){
+          const rad = 2 * Math.PI / 12 * i;
+          const x = (this.r - 50 * this.rem) * Math.cos(rad);
+          const y = (this.r - 50 * this.rem) * Math.sin(rad);
+          ctx.font = `${22 * this.rem}px Arial`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(item, x, y);
+        }
+        ctx.restore();
+        return this;
+      }
+      drawHour(ctx, h){
+        const rad = 2 * Math.PI / 12 * h;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        // 旋转坐标系
+        ctx.rotate(rad);
+        ctx.lineWidth = 10 * this.rem;
+        // 线条的帽子
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(0, 20 * this.rem);
+        ctx.lineTo(0, 120 * this.rem - this.r);
+        ctx.stroke();
+        
+        ctx.restore();
+        return this;
+      }
+      drawMin(ctx, m){
+        const rad = 2 * Math.PI / 60 * m;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        // 旋转坐标系
+        ctx.rotate(rad);
+        ctx.lineWidth = 6 * this.rem;
+        // 线条的帽子
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(0, 20 * this.rem);
+        ctx.lineTo(0, 80 * this.rem - this.r);
+        ctx.stroke();
+        
+        ctx.restore();
+        return this;
+      }
+      drawSec(ctx, s){
+        const rad = 2 * Math.PI / 60 * s;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        // 旋转坐标系
+        ctx.rotate(rad);
+        ctx.fillStyle = 'blue';
+        ctx.beginPath();
+        ctx.moveTo(-4 * this.rem, 30 * this.rem);
+        ctx.lineTo(4 * this.rem, 30 * this.rem);
+        ctx.lineTo(2 * this.rem, 70 * this.rem - this.r);
+        ctx.lineTo(-2 * this.rem, 70 * this.rem - this.r);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.restore();
+        return this;
+      }
+      drawRound(ctx){
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.fillStyle = 'green';
+        ctx.beginPath();
+        ctx.arc(0, 0, 10 * this.rem, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.restore();
+        return this;
+      }
+    }
+    
+    const clock = new Clock(X, Y, X).autoPlay(ctx);
+    
+    // 1 清除上一帧的绘制
+    // 2 绘制当前这一帧
+    
+    // (function fn(){
+    //   requestAnimationFrame(fn); // 动画帧
+    //   console.log(1);
+    // })()
+    
+    // setInterval(function() {
+    //   console.log(1);
+    // }, 4);
+    
+    // function fn(){
+    //   console.log(1);
+    //   setTimeout(fn, 4);
+    // }
+    // 
+    // fn();
+    
+    //http://newfq.com/
+    
+  </script>
+</body>
+</html>

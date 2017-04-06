@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    /*canvas {
+      width: 100px;
+      height: 2000px;
+    }*/
+  </style>
+</head>
+<body>
+  <!-- 300 * 150 -->
+  <canvas id="canvas"></canvas>
+  <script>
+    // 准备画布
+    const canvas = document.querySelector('#canvas');
+    // 准备画笔
+    const ctx = canvas.getContext('2d');
+    
+    const W = canvas.width = 600;
+    const H = canvas.height = 600;
+    
+    canvas.style.boxShadow = '4px 4px 12px rgba(0, 0, 0, 0.5)';
+    // canvas.style.backgroundColor = 'rgb(29, 33, 64)';
+    
+    //ctx.save()  保存当前的状态
+    //ctx.restore() 恢复之前保存的状态
+    
+    // 移动的是坐标系的原点
+    
+    ctx.save();
+    ctx.translate(300, 300);
+    ctx.lineWidth = 10;
+    
+    ctx.beginPath();
+    // ctx.arc(300, 300, 200, 0, 3*Math.PI/2, true);
+    ctx.arc(0, 0, 200, 0, 2*Math.PI);
+    ctx.stroke();
+    ctx.restore();
+    
+    // ctx.lineWidth = 5;
+    // ctx.beginPath();
+    // ctx.arc(0, 0, 100, 0, 2*Math.PI);
+    // ctx.stroke();
+    
+  </script>
+</body>
+</html>

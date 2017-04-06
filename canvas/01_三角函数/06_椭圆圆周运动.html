@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		canvas {
+			box-shadow: 4px 4px 10px rgba(0, 0, 0, .56);
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="800" height="600"></canvas>
+	<script src="../utils/fq_canvas.js"></script>
+  <script src="../utils/fq_ball.js"></script>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		
+		let W = canvas.width = 600;
+		let H = canvas.height = 400;
+
+		const ball = new Ball({
+			x: W/2, y: H/2
+		}).render(ctx);
+
+		let angle = 0;
+		let speed = 0.02;
+		let ra = 200, rb = 80;
+
+		(function render(){
+			window.requestAnimationFrame(render, canvas);
+			ctx.clearRect(0, 0, W, H);
+			
+			ctx.save();
+			ctx.translate(W/2, H/2);
+			ctx.scale(1, 0.4);
+			ctx.beginPath();
+			ctx.arc(0, 0, 200, 0, 2*Math.PI);
+			ctx.stroke();
+			ctx.restore();
+
+			ball.x = W/2 + ra * Math.sin(angle);
+			ball.y = H/2 + rb * Math.cos(angle);
+
+			angle += speed;
+			angle %= Math.PI * 2;
+
+			ball.render(ctx);
+		})();
+	</script>
+</body>
+</html>

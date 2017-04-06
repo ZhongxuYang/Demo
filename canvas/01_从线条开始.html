@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    /*canvas {
+      width: 100px;
+      height: 2000px;
+    }*/
+  </style>
+</head>
+<body>
+  <!-- 300 * 150 -->
+  <canvas id="canvas"></canvas>
+  <script>
+    // 准备画布
+    const canvas = document.querySelector('#canvas');
+    // 准备画笔
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = 600;
+    canvas.height = 600;
+    
+    canvas.style.boxShadow = '4px 4px 12px rgba(0, 0, 0, 0.5)';
+    
+    // canvas 所有的绘制方法 都是基于状态的，而不是基于对象的。
+    
+    ctx.lineWidth = 10;
+    
+    ctx.beginPath();
+    ctx.strokeStyle = 'red';
+    // ctx.strokeStyle = '#f00';
+    // ctx.strokeStyle = 'rgb(235, 61, 97)';
+    // h 代表色相  s 饱和度  l 亮度
+    // ctx.strokeStyle = 'hsla(350, 88%, 52%, 0.3)';
+    ctx.moveTo(50, 50);
+    ctx.lineTo(300, 200);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.strokeStyle = 'blue';
+    ctx.moveTo(100, 150);
+    ctx.lineTo(300, 300);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.strokeStyle = 'green';
+    ctx.moveTo(100, 250);
+    ctx.lineTo(300, 450);
+    ctx.stroke();
+    
+    // 在canvas绘图中同一时刻只有一条路径，一条路径可以有多个
+    // 子路径
+    
+    // 起始新的路径 ctx.beginPath();
+    // 闭合一个路径 ctx.closePath();
+    
+    
+  
+  </script>
+</body>
+</html>

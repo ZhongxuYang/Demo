@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    #canvas {
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script src="../utils/fq_canvas.js"></script>
+  <script src="../utils/fq_arrow.js"></script>
+  <script>
+    const canvas = document.querySelector('#canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let W = canvas.width = 600;
+    let H = canvas.height = 400;
+    let vx = 0, vy = 0, a = 0.4;
+    
+    const arrow = new Arrow({
+      x:W/2, y:H/2,
+      h: 36
+    }).render(ctx);
+    
+    const mouse = fq.mouse(canvas);
+    
+    (function render(){
+      window.requestAnimationFrame(render, canvas);
+      ctx.clearRect(0, 0, W, H);
+      
+      let x = mouse.x - arrow.x;
+      let y = mouse.y - arrow.y;
+      let rad = Math.atan2(y, x);
+      
+      let ax = a * Math.cos(rad);
+      let ay = a * Math.sin(rad);
+      
+      vx += ax;
+      vy += ay;
+      arrow.x += vx;
+      arrow.y += vy;
+      arrow.rotation = rad;
+      
+      arrow.render(ctx);
+    })();
+  </script>
+</body>
+</html>

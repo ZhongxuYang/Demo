@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    /*canvas {
+      width: 100px;
+      height: 2000px;
+    }*/
+  </style>
+</head>
+<body>
+  <!-- 300 * 150 -->
+  <canvas id="canvas"></canvas>
+  <script>
+    // 准备画布
+    const canvas = document.querySelector('#canvas');
+    // 准备画笔
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = 600;
+    canvas.height = 600;
+    
+    canvas.style.boxShadow = '4px 4px 12px rgba(0, 0, 0, 0.5)';
+    
+    // 设置绘图状态
+    ctx.lineWidth = 10;
+    ctx.styleStyle = 'red';
+    
+    // 设置绘图的路径
+    ctx.beginPath();
+    ctx.lineTo(100, 100); // 当使用beginPath可以直接使用lineTo
+    ctx.lineTo(400, 400);
+    ctx.lineTo(100, 400);
+    // ctx.lineTo(100, 100);
+    ctx.closePath();
+    
+    // 绘制动作
+    ctx.stroke();
+    
+
+    
+    // 起始新的路径 ctx.beginPath();
+    // 闭合一个路径 ctx.closePath();
+    
+    
+  
+  </script>
+</body>
+</html>

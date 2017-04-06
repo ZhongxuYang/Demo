@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    #canvas {
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script src="../../utils/fq_canvas.js"></script>
+  <script src="../../utils/fq_ball.js"></script>
+  <script>
+    const canvas = document.querySelector('#canvas');
+    const ctx = canvas.getContext('2d');
+    
+    let W = canvas.width = 600;
+    let H = canvas.height = 400;
+    
+    const balls = [];
+    
+    for(var i=0; i<300; i++){
+      balls.push(new Ball({
+        x: W * Math.random(),
+        y: H/6 * Math.random(),
+        g: Math.random() * 0.2 + 0.1,
+        f: -(Math.random() * 0.5 + 0.4),
+        r: Math.random() > 0.9 ? Math.random() * 2 + 4 : Math.random() * 2 + 2,
+        fs: `rgb(${~~(55 + 200 * Math.random())},${~~(55 + 200 * Math.random())},${~~(200 + 55 * Math.random())})`
+      }));
+    }
+
+    (function render(){
+      window.requestAnimationFrame(render, canvas);
+      ctx.clearRect(0, 0, W, H);
+      
+      for(let i=0; i<balls.length; i++){
+        balls[i].vy += balls[i].g;
+        balls[i].y += balls[i].vy;
+        if(balls[i].y >= H - balls[i].r){
+          balls[i].y = H - balls[i].r;
+          balls[i].vy *= balls[i].f;
+        }
+        balls[i].render(ctx);
+      }
+    })();
+  </script>
+</body>
+</html>
